@@ -1,36 +1,19 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import axios from 'axios'
 
 function App() {
-  const [jokes, setJokes] = useState([
-    {
-        "id": 1,
-        "title": "first joke",
-        "content": "This is first joke"
-    },
-    {
-        "id": 2,
-        "title": "second joke",
-        "content": "This is second joke"
-    },
-    {
-        "id": 3,
-        "title": "third joke",
-        "content": "This is third joke"
-    },
-    {
-        "id": 4,
-        "title": "fourth joke",
-        "content": "This is fourth joke"
-    },
-    {
-        "id": 5,
-        "title": "Fifth joke",
-        "content": "This is Fifth joke"
-    }
-])
+  useEffect(() =>{
+    axios.get("/api/jokes").then((response) => {
+      setJokes(response.data);
+    }).catch((error) => {
+      console.log(error)
+    })
+  }, [])
+
+  const [jokes, setJokes] = useState([])
 
   return (
     <>
